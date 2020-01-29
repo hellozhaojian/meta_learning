@@ -51,7 +51,41 @@ class Task(object):
         class_folders = random.sample(self.image_folders, self.num_class)
         labels = list(range(len(class_folders)))
         folders_2_labels = dict(zip(class_folders, labels))
-        samples = dict()
+
+        self.train_roots = []
+        self.train_labels = []
+        self.test_roots = []
+        self.test_labels = []
+        for c in class_folders:
+            all_image_files = [os.path.join(c, x) for x in os.listdir(c)]
+            samples = random.shuffle(all_image_files)
+            self.train_roots += samples[:self.support_num]
+            self.train_labels += [ folders_2_labels[c] for _ in samples[:self.support_num]]
+            self.test_roots += samples[self.support_num:self.support_num + self.query_num]
+            self.test_labels += [ folders_2_labels[c] for _ in samples[self.support_num:self.support_num+self.query_num]]
 
         self.meta_roots = []
+        self.meta_labels = []
+        for c in class_folders:
+            all_image_files = [os.path.join(c,x) for x in os.listdir(c)]
+            samples= random.shuffle(all_image_files)
+            self.meta_roots += samples[:self.support_num]
+            self.meta_labels += [ folders_2_labels[c] for _ in samples[:self.support_num]]
+
+
+class OmniglotTask(Task):
+
+    def __init__(self, *args, **kwargs):
+        super(OmniglotTask, self).__init__(*args, **kwargs)
+
+
+class ImagenetTask(Task):
+
+    def __init__(self, *args, **kwargs):
+        super(ImagenetTask, self).__init__(*args, **kwargs)
+
+
+# class
+
+
 
