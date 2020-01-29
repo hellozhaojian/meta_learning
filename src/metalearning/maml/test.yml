@@ -1,0 +1,8 @@
+data_ratios:
+  dev: 0.05
+  test: 0.05
+  train: 0.9
+learning_rate: 0.1
+mini_image_path: /Users/alchemy_taotaox/nltk_data/mini-imagenet
+omniglot_path: /Users/alchemy_taotaox/nltk_data/omniglot_resized
+random_seed: 298998999
